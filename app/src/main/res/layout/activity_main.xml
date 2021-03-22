@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/img"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -34,6 +35,7 @@
         android:onClick="Add"
         android:text="加2"
         android:textSize="30sp" />
+
     <Button
         android:id="@+id/btn3"
         android:layout_width="match_parent"
@@ -41,6 +43,12 @@
         android:onClick="Add"
         android:text="歸零"
         android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_launcher_background" />
 
 
 </LinearLayout>
