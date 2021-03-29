@@ -1,14 +1,20 @@
 package tw.edu.pu.o10830100.counter
 
+import android.content.Context
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(),
-View.OnClickListener {
+View.OnClickListener , View.OnTouchListener{
 
     var counter:Int = 0
 
@@ -26,6 +32,17 @@ View.OnClickListener {
             }
 
         })
+        txv.setOnLongClickListener(object:View.OnLongClickListener{
+            override fun onLongClick(v: View?): Boolean {
+                counter+=2
+                txv.text = counter.toString()
+                return true
+            }
+
+        })
+
+        txvvb.setOnTouchListener(this)
+
     }
     fun AddOne(v: View){
         counter++
@@ -63,4 +80,26 @@ View.OnClickListener {
       }*/
         txv.text = counter.toString()
     }
+
+
+      override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+     //txvvb.text = "觸控測試"
+          val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+
+          if (event?.action == MotionEvent.ACTION_DOWN) {
+         txvvb.text = "手指壓下"
+         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+             //Build.VERSION.SDK_INT >= 26, New vibrate method for API Level 26 or higher
+             vibrator.vibrate(VibrationEffect.createOneShot(5000, VibrationEffect.DEFAULT_AMPLITUDE))
+         } else {
+             vibrator.vibrate(5000)
+         }
+
+         } else if (event?.action == MotionEvent.ACTION_UP) {
+           txvvb.text = "手指彈開"
+             vibrator.cancel()
+
+         }
+     return true
+      }
 }
